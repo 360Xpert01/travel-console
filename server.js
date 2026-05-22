@@ -5,6 +5,7 @@
 // Note: Node's DNS → TCP path to api.travelport.net times out in this env.
 // Workaround: resolve the IP first, then connect by IP with SNI (hostname header).
 
+require('dotenv').config();
 require('dns').setDefaultResultOrder('ipv4first');
 
 const https   = require('https');
