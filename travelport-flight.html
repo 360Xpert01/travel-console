@@ -36,7 +36,7 @@
     --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
   }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 20px; line-height: 1.5; }
-  .container { max-width: 960px; margin: 0 auto; }
+  .container { max-width: 1000px; margin: 0 auto; }
 
   header { margin-bottom: 32px; display: flex; align-items: center; gap: 14px; }
   .header-icon { width: 42px; height: 42px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -72,14 +72,6 @@
   textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text); outline: none; resize: vertical; line-height: 1.7; transition: border-color 0.15s, box-shadow 0.15s; }
   textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 
-  .cred-banner { background: var(--green-soft); border: 1px solid var(--green-border); border-radius: var(--radius); padding: 10px 13px; font-size: 13px; color: var(--green); display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
-  .cred-banner svg { flex-shrink: 0; }
-
-  .cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
-  .cred-item { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; }
-  .cred-item-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
-  .cred-item-value { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
   .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text3); margin: 18px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
 
   .btn { width: 100%; padding: 10px 16px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.15s, transform 0.1s, box-shadow 0.15s; letter-spacing: -0.1px; margin-top: 4px; box-shadow: 0 1px 2px rgba(37,99,235,0.2); }
@@ -103,21 +95,114 @@
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
+  /* ── Search form legs ──────────────────────────────────────────────────── */
+  .leg-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .leg-row-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; grid-column: 1 / -1; }
+  .btn-remove {
+    width: 34px; height: 34px; padding: 0; border-radius: var(--radius); background: var(--red-soft);
+    border: 1px solid var(--red-border); color: var(--red); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s;
+    font-family: 'Inter', sans-serif; margin-top: 21px;
+  }
+  .btn-remove:hover { background: #fee2e2; }
+  .btn-remove:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-add-leg {
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: none;
+    border: 1px dashed var(--border2); border-radius: var(--radius); font-size: 13px; font-weight: 500;
+    color: var(--text2); cursor: pointer; font-family: 'Inter', sans-serif; transition: border-color 0.15s, color 0.15s, background 0.15s;
+    margin-bottom: 14px;
+  }
+  .btn-add-leg:hover { border-color: var(--accent-border); color: var(--accent); background: var(--accent-soft); }
+  .btn-add-leg:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── Results ───────────────────────────────────────────────────────────── */
   .results-section { margin-top: 16px; }
   .results-meta { font-size: 12px; color: var(--text3); margin-bottom: 12px; padding: 0 2px; }
 
-  .offer-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 8px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; transition: border-color 0.15s, box-shadow 0.15s; box-shadow: var(--shadow); }
+  .offer-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    margin-bottom: 10px; transition: border-color 0.15s, box-shadow 0.15s; box-shadow: var(--shadow);
+    overflow: hidden;
+  }
   .offer-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-md); }
-  .offer-left { flex: 1; min-width: 0; }
-  .offer-num { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
-  .segment { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text2); margin-bottom: 4px; flex-wrap: wrap; }
-  .seg-route { font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: -0.3px; }
-  .seg-flight { background: var(--accent-soft); border-radius: 5px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; color: var(--accent); border: 1px solid var(--accent-border); }
-  .seg-times { font-size: 12px; color: var(--text3); }
-  .offer-right { text-align: right; flex-shrink: 0; }
-  .offer-price { font-size: 20px; font-weight: 600; color: var(--text); letter-spacing: -0.5px; }
-  .offer-price-label { font-size: 11px; color: var(--text3); margin-top: 2px; }
 
+  .offer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px 10px; border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .offer-num { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text3); }
+  .offer-brand { display: inline-block; margin-left: 10px; font-size: 11px; font-weight: 500; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-border); padding: 1px 7px; border-radius: 4px; }
+  .offer-price-wrap { text-align: right; }
+  .offer-price { font-size: 20px; font-weight: 600; color: var(--text); letter-spacing: -0.5px; }
+  .offer-price-label { font-size: 11px; color: var(--text3); margin-top: 1px; }
+
+  .offer-body { padding: 14px 20px; }
+
+  .leg-block + .leg-block { border-top: 1px solid var(--border); padding-top: 14px; margin-top: 14px; }
+
+  .leg-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  }
+  .leg-header-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text3); }
+  .leg-route-label { font-size: 13px; font-weight: 600; color: var(--text); }
+  .stops-badge {
+    margin-left: auto; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+  }
+  .stops-badge.nonstop { background: var(--green-soft); color: var(--green); border: 1px solid var(--green-border); }
+  .stops-badge.onestop { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+  .stops-badge.multistop { background: var(--red-soft); color: var(--red); border: 1px solid var(--red-border); }
+  .total-duration { font-size: 11px; color: var(--text3); margin-left: 8px; }
+
+  .flight-row {
+    display: grid; grid-template-columns: 56px 1fr 56px; align-items: center; gap: 12px;
+    margin-bottom: 4px;
+  }
+  .apt-col { text-align: center; }
+  .apt-time { font-size: 17px; font-weight: 600; color: var(--text); letter-spacing: -0.5px; line-height: 1; }
+  .apt-code { font-size: 11px; font-weight: 500; color: var(--text3); margin-top: 3px; letter-spacing: 0.3px; }
+  .apt-date { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .apt-date-note { font-size: 10px; color: var(--red); font-weight: 600; margin-top: 2px; }
+
+  .flight-mid { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .flight-info-row { display: flex; align-items: center; gap: 6px; }
+  .flight-badge { background: var(--accent-soft); border: 1px solid var(--accent-border); border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; color: var(--accent); }
+  .cabin-badge { background: var(--surface3); border: 1px solid var(--border); border-radius: 4px; padding: 2px 7px; font-size: 11px; color: var(--text3); }
+  .duration-label { font-size: 12px; color: var(--text3); font-weight: 500; }
+
+  .flight-line-wrap { position: relative; width: 100%; height: 2px; background: var(--border2); border-radius: 2px; }
+  .flight-line-dot { position: absolute; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--border2); }
+  .flight-line-dot.left { left: 0; }
+  .flight-line-dot.right { right: 0; }
+
+  .layover-row {
+    display: flex; align-items: center; gap: 8px; padding: 4px 0 4px 70px;
+    font-size: 11px; color: var(--amber); font-weight: 500;
+  }
+  .layover-row::before { content: ''; display: inline-block; width: 1px; height: 16px; background: var(--border2); margin-right: 4px; }
+
+  .upsell-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    padding: 10px 20px; border-top: 1px solid var(--border); background: var(--surface2);
+  }
+  .upsell-label { font-size: 11px; color: var(--text3); font-weight: 500; margin-right: 4px; }
+  .upsell-chip {
+    font-size: 11px; padding: 3px 9px; border-radius: 4px; border: 1px solid var(--border2);
+    color: var(--text2); background: var(--surface); cursor: default; font-weight: 500;
+  }
+  .upsell-chip .chip-price { color: var(--accent); font-weight: 600; margin-left: 4px; }
+
+  /* ── Raw response ──────────────────────────────────────────────────────── */
   .raw-section { margin-top: 16px; }
   .raw-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
   .raw-title { font-size: 12px; font-weight: 600; color: var(--text3); }
@@ -129,10 +214,20 @@
 
   .token-display { display: none; background: var(--green-soft); border: 1px solid var(--green-border); border-radius: var(--radius); padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green); word-break: break-all; margin-top: 10px; line-height: 1.7; }
 
-  .return-field { display: none; }
+  /* ── Airport-only toggle ─────────────────────────────────────────────────── */
+  .airport-toggle-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .toggle-switch { position: relative; display: inline-block; width: 36px; height: 20px; flex-shrink: 0; }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: var(--border2); border-radius: 20px; transition: background 0.2s; }
+  .toggle-slider::before { content: ''; position: absolute; width: 14px; height: 14px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+  .toggle-switch input:checked + .toggle-slider { background: var(--accent); }
+  .toggle-switch input:checked + .toggle-slider::before { transform: translateX(16px); }
+  .toggle-label { font-size: 13px; font-weight: 500; color: var(--text2); cursor: pointer; user-select: none; }
+  .toggle-desc { font-size: 11px; color: var(--text3); }
 
+  @media (max-width: 700px) { .leg-row { grid-template-columns: 1fr 1fr; } .leg-row-label { margin-bottom: 4px; } .btn-remove { margin-top: 0; grid-column: 2; justify-self: end; } }
   @media (max-width: 640px) { .grid-2, .grid-3, .grid-4, .cred-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 420px) { .grid-2, .grid-3, .grid-4, .cred-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 420px) { .grid-2, .grid-3, .grid-4, .cred-grid { grid-template-columns: 1fr; } .flight-row { grid-template-columns: 48px 1fr 48px; gap: 8px; } .apt-time { font-size: 15px; } }
 </style>
 </head>
 <body>
@@ -141,68 +236,15 @@
   <header>
     <div class="header-icon">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19 2c-2-2-4-2-5.5-.5L10 5 1.8 6.2c-.5.1-.9.5-.9 1-.1.5.1.9.5 1.2l5 3.5-1.5 5c-.1.5.1 1 .5 1.3.4.3.9.3 1.3 0L11 14l4.5 3.2c.4.3.9.3 1.3 0 .4-.3.6-.8.5-1.3z"/>
       </svg>
     </div>
     <div>
-      <h1>Travelport+ API Tester</h1>
+      <h1>Travelport+ Flight Search</h1>
       <p>Proxied via <strong>localhost:3000</strong> → <strong>api.travelport.net</strong></p>
     </div>
   </header>
 
-  <!-- Config Card -->
-  <div class="card">
-    <div class="card-title">Configuration</div>
-
-    <div class="cred-banner">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      Credentials loaded from <strong>.env</strong> — hardcoded below, not editable in UI.
-    </div>
-
-    <!-- Credential summary (read-only display) -->
-    <div class="cred-grid">
-      <div class="cred-item">
-        <div class="cred-item-label">Client ID</div>
-        <div class="cred-item-value" id="disp-clientId"></div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-item-label">Client Secret</div>
-        <div class="cred-item-value" id="disp-clientSecret"></div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-item-label">Grant type</div>
-        <div class="cred-item-value" id="disp-grantType"></div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-item-label">Username</div>
-        <div class="cred-item-value" id="disp-username"></div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-item-label">Access Group (PCC)</div>
-        <div class="cred-item-value" id="disp-accessGroup"></div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-item-label">Travelport ID / Agency ID</div>
-        <div class="cred-item-value" id="disp-ids"></div>
-      </div>
-    </div>
-
-    <!-- Environment -->
-    <div class="section-label">Environment</div>
-    <div class="grid-2 field-group">
-      <div class="field">
-        <label>Environment</label>
-        <select id="environment" onchange="applyEnvironment()">
-          <option value="prod">Production — api.travelport.net</option>
-          <option value="preprod">Pre-production — api.pp.travelport.net</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Active API base</label>
-        <input type="text" id="apiBaseDisplay" readonly />
-      </div>
-    </div>
-  </div>
 
   <!-- Tabs -->
   <div class="tabs">
@@ -215,37 +257,22 @@
   <div id="tab-search" class="tab-panel active">
     <div class="card">
       <div class="card-title">Search parameters</div>
-      <div class="grid-4 field-group">
-        <div class="field">
-          <label>Origin</label>
-          <input type="text" id="origin" placeholder="KHI" maxlength="3" style="text-transform:uppercase;" />
-        </div>
-        <div class="field">
-          <label>Destination</label>
-          <input type="text" id="destination" placeholder="DXB" maxlength="3" style="text-transform:uppercase;" />
-        </div>
-        <div class="field">
-          <label>Departure date</label>
-          <input type="date" id="depDate" />
-        </div>
-        <div class="field return-field" id="returnFieldWrap">
-          <label>Return date</label>
-          <input type="date" id="retDate" />
-        </div>
-      </div>
+
+      <!-- Trip options row -->
       <div class="grid-3 field-group">
         <div class="field">
           <label>Trip type</label>
-          <select id="tripType" onchange="toggleReturn()">
+          <select id="tripType" onchange="onTripTypeChange()">
             <option value="one_way">One way</option>
             <option value="round_trip">Round trip</option>
+            <option value="multi_city">Multi-city</option>
           </select>
         </div>
         <div class="field">
           <label>Cabin class</label>
           <select id="cabin">
             <option value="Economy">Economy</option>
-            <option value="PremiumEconomy">Premium economy</option>
+            <option value="PremiumEconomy">Premium Economy</option>
             <option value="Business">Business</option>
             <option value="First">First</option>
           </select>
@@ -257,13 +284,49 @@
             <option value="2">2 adults</option>
             <option value="3">3 adults</option>
             <option value="4">4 adults</option>
+            <option value="5">5 adults</option>
+            <option value="6">6 adults</option>
           </select>
         </div>
       </div>
+
+      <!-- Airport-only toggle -->
+      <div class="airport-toggle-row">
+        <label class="toggle-switch" for="airportOnly">
+          <input type="checkbox" id="airportOnly" />
+          <span class="toggle-slider"></span>
+        </label>
+        <label class="toggle-label" for="airportOnly">Airport only</label>
+        <span class="toggle-desc">Off = city-level (LHR includes STN/LGW · DXB includes XNB) &nbsp;·&nbsp; On = exact airport only</span>
+      </div>
+
+      <!-- Dynamic leg list -->
+      <div id="legs-container"></div>
+
+      <!-- Add leg button (shown only for multi-city) -->
+      <button class="btn-add-leg" id="btn-add-leg" onclick="addLeg()" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Add another leg
+      </button>
+
       <button class="btn" onclick="doSearch()">Search flights</button>
       <div id="searchStatus" class="status hidden"></div>
     </div>
+
+    <!-- Sent payload (shown above results after search) -->
+    <div id="searchPayload" class="raw-section" style="display:none; margin-top:16px;">
+      <div class="raw-header">
+        <span class="raw-title">Request payload sent to Travelport</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-copy" id="togglePayloadBtn" onclick="togglePayload()">Collapse</button>
+          <button class="btn-copy" id="copyPayloadBtn" onclick="copyRaw('payloadJson','copyPayloadBtn')">Copy JSON</button>
+        </div>
+      </div>
+      <pre id="payloadJson"></pre>
+    </div>
+
     <div id="searchResults" class="results-section"></div>
+
     <div id="searchRaw" class="raw-section" style="display:none;">
       <div class="raw-header">
         <span class="raw-title">Raw API response</span>
@@ -278,7 +341,7 @@
     <div class="card">
       <div class="card-title">OAuth token test</div>
       <p style="font-size:13px; color:var(--text2); margin-bottom:16px; line-height:1.6;">
-        Authenticates and returns your access token. Tokens are valid for 24 hours and cached in memory — this button forces a fresh fetch.
+        Authenticates against Travelport and returns an access token. Tokens are valid for 24 hours and cached in memory — this button forces a fresh fetch.
       </p>
       <button class="btn" onclick="doTokenTest()">Get access token</button>
       <div id="tokenStatus" class="status hidden"></div>
@@ -301,12 +364,12 @@
           </select>
         </div>
         <div class="field">
-          <label>Path <span class="hint">(appended to API base URL)</span></label>
+          <label>Path <span class="hint">(appended to API base)</span></label>
           <input type="text" id="customPath" value="/11/air/catalog/search/catalogproductofferings" />
         </div>
       </div>
       <div class="field field-group">
-        <label>Full URL <span class="hint">(auto-built, or override manually)</span></label>
+        <label>Full URL <span class="hint">(auto-built)</span></label>
         <input type="text" id="customUrl" />
       </div>
       <div class="field field-group">
@@ -319,29 +382,20 @@
       "contentSourceList": ["GDS", "NDC"],
       "sortBy": "Price-LowToHigh",
       "PassengerCriteria": [
-        {
-          "@type": "PassengerCriteria",
-          "passengerTypeCode": "ADT",
-          "number": 1
-        }
+        { "@type": "PassengerCriteria", "passengerTypeCode": "ADT", "number": 1 }
       ],
       "SearchCriteriaFlight": [
         {
           "@type": "SearchCriteriaFlight",
-          "legSequence": 1,
-          "departureDate": "2026-07-01",
-          "From": { "value": "KHI", "cityOrAirport": "Airport Only" },
-          "To":   { "value": "DXB", "cityOrAirport": "Airport Only" }
+          "departureDate": "2026-07-15",
+          "From": { "value": "KHI" },
+          "To":   { "value": "DXB" }
         }
       ],
       "SearchModifiersAir": {
         "@type": "SearchModifiersAir",
         "CabinPreference": [
-          {
-            "@type": "CabinPreference",
-            "preferenceType": "Preferred",
-            "cabins": ["Economy"]
-          }
+          { "@type": "CabinPreference", "preferenceType": "Preferred", "cabins": ["Economy"] }
         ]
       },
       "CustomResponseModifiersAir": {
@@ -369,7 +423,7 @@
 </div><!-- /container -->
 
 <script>
-// ── credentials from .env ─────────────────────────────────────────────────────
+// ── Credentials from .env ──────────────────────────────────────────────────────
 const CREDS = {
   clientId:     'HZ4vsxp3PhrUhl3zb6yHJ1yAWbtLiRxE',
   clientSecret: 'biWp2nBsearKWVpsPYJZCsbrXsSLDoiTEy_MACY5G9zDxJDy-qY1B5lIedNa0HIF',
@@ -381,49 +435,162 @@ const CREDS = {
   agencyId:     '35439187',
 };
 
-// ── environment presets ────────────────────────────────────────────────────────
+// ── Environment presets ────────────────────────────────────────────────────────
 const ENV = {
   prod:    { api: 'http://localhost:3000/proxy/api',    auth: 'http://localhost:3000/proxy/auth' },
-  preprod: { api: 'http://localhost:3000/proxy/api-pp', auth: 'http://localhost:3000/proxy/auth-pp' }
+  preprod: { api: 'http://localhost:3000/proxy/api-pp', auth: 'http://localhost:3000/proxy/auth-pp' },
 };
 let activeEnv = ENV.prod;
 
-function applyEnvironment() {
-  activeEnv = ENV[document.getElementById('environment').value] || ENV.prod;
-  document.getElementById('apiBaseDisplay').value = activeEnv.api;
-  _tokenCache = null;
-  syncUrl();
+
+// ── Leg state ──────────────────────────────────────────────────────────────────
+// Each leg: { from, to, date }
+let legs = [];
+
+function buildLegHTML(idx, leg) {
+  const isMulti = document.getElementById('tripType').value === 'multi_city';
+  const canRemove = isMulti && legs.length > 2;
+  const labels = legs.length === 1 ? ['Leg'] :
+                 legs.length === 2 ? ['Outbound', 'Return'] :
+                 legs.map((_, i) => 'Leg ' + (i + 1));
+  return `
+    <div class="leg-row" id="leg-${idx}">
+      <div class="leg-row-label">${labels[idx] || ('Leg ' + (idx + 1))}</div>
+      <div class="field">
+        <label>From</label>
+        <input type="text" id="leg-from-${idx}" value="${esc(leg.from)}" placeholder="KHI" maxlength="3" style="text-transform:uppercase;" oninput="legs[${idx}].from=this.value.toUpperCase()" />
+      </div>
+      <div class="field">
+        <label>To</label>
+        <input type="text" id="leg-to-${idx}" value="${esc(leg.to)}" placeholder="DXB" maxlength="3" style="text-transform:uppercase;" oninput="legs[${idx}].to=this.value.toUpperCase()" />
+      </div>
+      <div class="field">
+        <label>Date</label>
+        <input type="date" id="leg-date-${idx}" value="${esc(leg.date)}" onchange="legs[${idx}].date=this.value" />
+      </div>
+      <button class="btn-remove" title="Remove leg" onclick="removeLeg(${idx})" ${canRemove ? '' : 'disabled'}>×</button>
+    </div>`;
 }
 
-// populate credential summary display
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('disp-clientId').textContent     = CREDS.clientId.slice(0,8) + '••••••••';
-  document.getElementById('disp-clientSecret').textContent = CREDS.clientSecret.slice(0,6) + '••••••••••••';
-  document.getElementById('disp-grantType').textContent    = CREDS.grantType;
-  document.getElementById('disp-username').textContent     = CREDS.username;
-  document.getElementById('disp-accessGroup').textContent  = CREDS.accessGroup;
-  document.getElementById('disp-ids').textContent          = CREDS.travelportId + ' / ' + CREDS.agencyId;
-  applyEnvironment();
+function renderLegs() {
+  const container = document.getElementById('legs-container');
+  container.innerHTML = legs.map((l, i) => buildLegHTML(i, l)).join('');
+  const isMulti = document.getElementById('tripType').value === 'multi_city';
+  const addBtn = document.getElementById('btn-add-leg');
+  addBtn.style.display = isMulti ? '' : 'none';
+  addBtn.disabled = legs.length >= 6;
+}
 
-  document.getElementById('customPath').addEventListener('input', syncUrl);
-  syncUrl();
-});
+function addLeg() {
+  if (legs.length >= 6) return;
+  // Pre-fill: new leg departs from previous destination
+  const prev = legs[legs.length - 1];
+  const nextDate = new Date(prev.date || new Date());
+  nextDate.setDate(nextDate.getDate() + 5);
+  legs.push({ from: prev.to || '', to: '', date: nextDate.toISOString().slice(0, 10) });
+  renderLegs();
+}
 
-// ── helpers ───────────────────────────────────────────────────────────────────
-function syncUrl() {
-  const base = activeEnv.api;
-  const path = document.getElementById('customPath').value;
-  document.getElementById('customUrl').value = base + (path.startsWith('/') ? path : '/' + path);
+function removeLeg(idx) {
+  if (legs.length <= 2) return;
+  legs.splice(idx, 1);
+  renderLegs();
+}
+
+function onTripTypeChange() {
+  const type = document.getElementById('tripType').value;
+  // Capture current values before rebuilding
+  const curFrom = document.getElementById('leg-from-0')?.value.toUpperCase() || legs[0]?.from || 'KHI';
+  const curTo   = document.getElementById('leg-to-0')?.value.toUpperCase()   || legs[0]?.to   || 'DXB';
+  const curDate = document.getElementById('leg-date-0')?.value || legs[0]?.date || defaultDate(7);
+
+  if (type === 'one_way') {
+    legs = [{ from: curFrom, to: curTo, date: curDate }];
+  } else if (type === 'round_trip') {
+    const retDate = legs[1]?.date || defaultDate(14);
+    legs = [
+      { from: curFrom, to: curTo, date: curDate },
+      { from: curTo,   to: curFrom, date: retDate },
+    ];
+  } else {
+    // multi_city — start with current 2 legs or initialise
+    if (legs.length < 2) {
+      legs = [
+        { from: curFrom, to: curTo, date: curDate },
+        { from: curTo,   to: '',    date: defaultDate(14) },
+      ];
+    }
+  }
+  renderLegs();
+}
+
+function defaultDate(plusDays) {
+  const d = new Date();
+  d.setDate(d.getDate() + plusDays);
+  return d.toISOString().slice(0, 10);
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+function parseDuration(iso) {
+  if (!iso) return '';
+  const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
+  if (!m) return '';
+  const h = parseInt(m[1] || '0', 10);
+  const min = parseInt(m[2] || '0', 10);
+  if (h && min) return h + 'h ' + min + 'm';
+  if (h) return h + 'h';
+  return min + 'm';
+}
+
+function toMinutes(date, time) {
+  if (!date || !time) return null;
+  const d = new Date(date + 'T' + (time.length === 5 ? time : time.slice(0, 5)) + ':00');
+  return isNaN(d.getTime()) ? null : Math.floor(d.getTime() / 60000);
+}
+
+function formatMinutes(mins) {
+  if (mins == null || mins < 0) return '';
+  const h = Math.floor(mins / 60), m = mins % 60;
+  return h ? h + 'h ' + (m ? m + 'm' : '') : m + 'm';
+}
+
+function nextDayNote(depDate, arrDate) {
+  if (!depDate || !arrDate || depDate === arrDate) return '';
+  const diff = Math.round((new Date(arrDate) - new Date(depDate)) / 86400000);
+  return diff > 0 ? '+' + diff + 'd' : '';
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr + 'T00:00:00');
+  if (isNaN(d.getTime())) return dateStr;
+  return d.getDate() + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+}
+
+function togglePayload() {
+  const pre = document.getElementById('payloadJson');
+  const btn = document.getElementById('togglePayloadBtn');
+  const collapsed = pre.style.display === 'none';
+  pre.style.display = collapsed ? '' : 'none';
+  btn.textContent   = collapsed ? 'Collapse' : 'Expand';
 }
 
 function switchTab(name) {
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['search','token','custom'][i] === name));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+  document.querySelectorAll('.tab').forEach((t, i) =>
+    t.classList.toggle('active', ['search', 'token', 'custom'][i] === name));
+  document.querySelectorAll('.tab-panel').forEach(p =>
+    p.classList.toggle('active', p.id === 'tab-' + name));
 }
-function toggleReturn() {
-  document.getElementById('returnFieldWrap').style.display =
-    document.getElementById('tripType').value === 'round_trip' ? 'block' : 'none';
+
+function syncUrl() {
+  const path = document.getElementById('customPath').value;
+  document.getElementById('customUrl').value = activeEnv.api + (path.startsWith('/') ? path : '/' + path);
 }
+
 function setStatus(id, msg, type, spinner) {
   const el = document.getElementById(id);
   el.className = 'status ' + type;
@@ -432,23 +599,20 @@ function setStatus(id, msg, type, spinner) {
   el.appendChild(document.createTextNode(msg));
 }
 function hideStatus(id) { document.getElementById(id).className = 'status hidden'; }
-function esc(v) {
-  return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
 
-// ── headers ───────────────────────────────────────────────────────────────────
+// ── Auth headers ───────────────────────────────────────────────────────────────
 function buildHeaders(token) {
   return {
-    'Authorization':               'Bearer ' + token,
-    'Content-Type':                'application/json',
-    'Accept':                      'application/json',
+    'Authorization':                'Bearer ' + token,
+    'Content-Type':                 'application/json',
+    'Accept':                       'application/json',
     'XAUTH_TRAVELPORT_ACCESSGROUP': CREDS.accessGroup,
-    'TravelportID':                CREDS.travelportId,
-    'AgencyID':                    CREDS.agencyId,
+    'TravelportID':                 CREDS.travelportId,
+    'AgencyID':                     CREDS.agencyId,
   };
 }
 
-// ── auth — 24 h in-memory token cache ─────────────────────────────────────────
+// ── Token cache (24h) ─────────────────────────────────────────────────────────
 let _tokenCache = null;
 
 async function getToken(force) {
@@ -457,7 +621,8 @@ async function getToken(force) {
   const creds = btoa(unescape(encodeURIComponent(CREDS.clientId + ':' + CREDS.clientSecret)));
   let body = 'grant_type=' + CREDS.grantType;
   if (CREDS.grantType === 'password') {
-    body += '&username=' + encodeURIComponent(CREDS.username) + '&password=' + encodeURIComponent(CREDS.password);
+    body += '&username=' + encodeURIComponent(CREDS.username)
+          + '&password=' + encodeURIComponent(CREDS.password);
   }
 
   const url = activeEnv.auth + '/oauth/token';
@@ -466,22 +631,22 @@ async function getToken(force) {
     res  = await fetch(url, {
       method: 'POST',
       headers: { 'Authorization': 'Basic ' + creds, 'Content-Type': 'application/x-www-form-urlencoded' },
-      body
+      body,
     });
     data = await res.json();
-  } catch(e) { throw new Error('Auth request failed: ' + e.message); }
+  } catch (e) { throw new Error('Auth request failed: ' + e.message); }
 
   if (!res.ok || !data.access_token) {
     throw new Error('Auth failed (' + res.status + '): ' +
-      (data.error_description || data.error || data.message || JSON.stringify(data).slice(0,150)));
+      (data.error_description || data.error || data.message || JSON.stringify(data).slice(0, 150)));
   }
 
-  const ttl = (data.expires_in || 86400) - 60;
+  const ttl = (data.expires_in || 86400) - 300;
   _tokenCache = { token: data.access_token, path: url, exp: Date.now() + ttl * 1000 };
   return _tokenCache;
 }
 
-// ── token test ────────────────────────────────────────────────────────────────
+// ── Token test ────────────────────────────────────────────────────────────────
 async function doTokenTest() {
   _tokenCache = null;
   setStatus('tokenStatus', 'Requesting token…', 'info', true);
@@ -491,183 +656,388 @@ async function doTokenTest() {
     setStatus('tokenStatus', 'Token obtained via ' + path, 'success', false);
     const d = document.getElementById('tokenDisplay');
     d.style.display = 'block';
-    d.textContent = '✓ ' + token.slice(0,80) + '…\n\nFull token copied to clipboard.';
+    d.textContent = token.slice(0, 80) + '…\n\n(Full token copied to clipboard)';
     navigator.clipboard.writeText(token).catch(() => {});
-  } catch(e) { setStatus('tokenStatus', e.message, 'error', false); }
+  } catch (e) { setStatus('tokenStatus', e.message, 'error', false); }
 }
 
-// ── flight search ─────────────────────────────────────────────────────────────
+// ── Flight search ─────────────────────────────────────────────────────────────
 async function doSearch() {
-  const origin      = document.getElementById('origin').value.trim().toUpperCase();
-  const destination = document.getElementById('destination').value.trim().toUpperCase();
-  const depDate     = document.getElementById('depDate').value;
-  const cabin       = document.getElementById('cabin').value;
-  const adults      = parseInt(document.getElementById('adults').value);
-  const tripType    = document.getElementById('tripType').value;
-  const retDate     = document.getElementById('retDate').value;
+  // Collect current field values into legs array
+  legs.forEach((leg, i) => {
+    leg.from = (document.getElementById('leg-from-' + i)?.value || '').toUpperCase().trim();
+    leg.to   = (document.getElementById('leg-to-' + i)?.value   || '').toUpperCase().trim();
+    leg.date = document.getElementById('leg-date-' + i)?.value || '';
+  });
 
-  if (!origin || origin.length !== 3)           { setStatus('searchStatus','Enter a valid 3-letter origin code (e.g. KHI).','error'); return; }
-  if (!destination || destination.length !== 3) { setStatus('searchStatus','Enter a valid 3-letter destination code (e.g. DXB).','error'); return; }
-  if (!depDate)                                  { setStatus('searchStatus','Please select a departure date.','error'); return; }
-  if (tripType === 'round_trip' && !retDate)     { setStatus('searchStatus','Please select a return date.','error'); return; }
+  const cabin  = document.getElementById('cabin').value;
+  const adults = parseInt(document.getElementById('adults').value, 10);
+
+  // Validate
+  for (let i = 0; i < legs.length; i++) {
+    const l = legs[i];
+    const label = legs.length === 1 ? '' : (' (Leg ' + (i + 1) + ')');
+    if (!l.from || l.from.length !== 3) { setStatus('searchStatus', 'Enter a valid 3-letter origin code' + label, 'error'); return; }
+    if (!l.to   || l.to.length   !== 3) { setStatus('searchStatus', 'Enter a valid 3-letter destination code' + label, 'error'); return; }
+    if (!l.date)                         { setStatus('searchStatus', 'Select a departure date' + label, 'error'); return; }
+  }
 
   document.getElementById('searchResults').innerHTML = '';
   document.getElementById('searchRaw').style.display = 'none';
-  setStatus('searchStatus','Authenticating…','info',true);
+  document.getElementById('searchPayload').style.display = 'none';
+  setStatus('searchStatus', 'Authenticating…', 'info', true);
 
   let token;
-  try { ({ token } = await getToken()); } catch(e) { setStatus('searchStatus', e.message, 'error'); return; }
+  try { ({ token } = await getToken()); } catch (e) { setStatus('searchStatus', e.message, 'error'); return; }
 
-  setStatus('searchStatus','Searching flights…','info',true);
+  setStatus('searchStatus', 'Searching flights…', 'info', true);
 
-  const legs = [
-    { '@type': 'SearchCriteriaFlight', legSequence: 1, departureDate: depDate,
-      From: { value: origin,      cityOrAirport: 'Airport Only' },
-      To:   { value: destination, cityOrAirport: 'Airport Only' } }
-  ];
-  if (tripType === 'round_trip') {
-    legs.push({ '@type': 'SearchCriteriaFlight', legSequence: 2, departureDate: retDate,
-      From: { value: destination, cityOrAirport: 'Airport Only' },
-      To:   { value: origin,      cityOrAirport: 'Airport Only' } });
-  }
+  // maxNumberOfUpsellsToReturn depends on leg count (API limit)
+  const maxUpsells = legs.length <= 2 ? 4 : legs.length === 3 ? 2 : 1;
+  // NDC only supports up to 3 legs
+  const contentSources = legs.length > 3 ? ['GDS'] : ['GDS', 'NDC'];
 
   const payload = {
     CatalogProductOfferingsQueryRequest: {
       CatalogProductOfferingsRequest: {
-        '@type': 'CatalogProductOfferingsRequestAir',
-        maxNumberOfUpsellsToReturn: 4,
-        contentSourceList: ['GDS', 'NDC'],
-        sortBy: 'Price-LowToHigh',
-        PassengerCriteria: [{ '@type': 'PassengerCriteria', passengerTypeCode: 'ADT', number: adults }],
-        SearchCriteriaFlight: legs,
+        '@type':                    'CatalogProductOfferingsRequestAir',
+        maxNumberOfUpsellsToReturn: maxUpsells,
+        contentSourceList:          contentSources,
+        sortBy:                     'Price-LowToHigh',
+        PassengerCriteria: [
+          { '@type': 'PassengerCriteria', passengerTypeCode: 'ADT', number: adults }
+        ],
+        SearchCriteriaFlight: legs.map(l => {
+          const airportOnly = document.getElementById('airportOnly').checked;
+          const from = airportOnly ? { value: l.from, cityOrAirport: 'Airport Only' } : { value: l.from };
+          const to   = airportOnly ? { value: l.to,   cityOrAirport: 'Airport Only' } : { value: l.to   };
+          return { '@type': 'SearchCriteriaFlight', departureDate: l.date, From: from, To: to };
+        }),
         SearchModifiersAir: {
           '@type': 'SearchModifiersAir',
-          CabinPreference: [{ '@type': 'CabinPreference', preferenceType: 'Preferred', cabins: [cabin] }]
+          CabinPreference: [
+            { '@type': 'CabinPreference', preferenceType: 'Preferred', cabins: [cabin] }
+          ],
         },
         CustomResponseModifiersAir: {
-          '@type': 'CustomResponseModifiersAir',
-          SearchRepresentation: 'Journey',
-          offersPerPage: 50,
-          includeFlightAmenitiesInd: true
-        }
-      }
-    }
+          '@type':                   'CustomResponseModifiersAir',
+          SearchRepresentation:      'Journey',
+          offersPerPage:             50,
+          includeFlightAmenitiesInd: true,
+        },
+      },
+    },
   };
 
+  // Show the payload that is about to be sent
+  const payloadJson = JSON.stringify(payload, null, 2);
+  document.getElementById('payloadJson').textContent = payloadJson;
+  const payloadEl = document.getElementById('searchPayload');
+  payloadEl.style.display = 'block';
+  const toggleBtn = document.getElementById('togglePayloadBtn');
+  toggleBtn.textContent = 'Collapse';
+  payloadEl.dataset.collapsed = '';
+
   try {
-    const res = await fetch(activeEnv.api + '/11/air/catalog/search/catalogproductofferings', {
-      method: 'POST', headers: buildHeaders(token), body: JSON.stringify(payload)
+    const res  = await fetch(activeEnv.api + '/11/air/catalog/search/catalogproductofferings', {
+      method: 'POST', headers: buildHeaders(token), body: payloadJson,
     });
     const data = await res.json();
     document.getElementById('searchJson').textContent = JSON.stringify(data, null, 2);
     document.getElementById('searchRaw').style.display = 'block';
+
     if (!res.ok) {
-      const errMsg = data?.Errors?.Error?.[0]?.value || data?.message || data?.detail
-        || JSON.stringify(data).slice(0,200);
-      setStatus('searchStatus', 'API error ' + res.status + ': ' + errMsg, 'error');
+      const err = data?.Errors?.Error?.[0]?.value
+               || data?.errors?.[0]?.description
+               || data?.message || data?.detail
+               || JSON.stringify(data).slice(0, 200);
+      setStatus('searchStatus', 'API error ' + res.status + ': ' + err, 'error');
       return;
     }
+
     renderResults(data);
     hideStatus('searchStatus');
-  } catch(e) { setStatus('searchStatus','Request failed: ' + e.message,'error'); }
+  } catch (e) { setStatus('searchStatus', 'Request failed: ' + e.message, 'error'); }
 }
 
-// ── render v11 CatalogProductOfferingsResponse ────────────────────────────────
+// ── Render v11 CatalogProductOfferingsResponse ─────────────────────────────────
 function renderResults(data) {
   const container = document.getElementById('searchResults');
-  const resp   = data?.CatalogProductOfferingsResponse;
-  const offers = resp?.CatalogProductOfferings?.CatalogProductOffering ?? [];
+  container.innerHTML = '';
 
-  if (!offers.length) {
-    container.innerHTML = '<div class="card" style="color:var(--text2);font-size:14px;">No offers found. Check the raw JSON below for details.</div>';
+  const resp = data?.CatalogProductOfferingsResponse;
+  if (!resp) {
+    container.innerHTML = '<div class="card" style="color:var(--text2);font-size:14px;">Unexpected response structure — check raw JSON below.</div>';
     return;
   }
 
-  // Build lookup maps from typed ReferenceList entries
-  const refs       = Array.isArray(resp?.ReferenceList) ? resp.ReferenceList : (resp?.ReferenceList ? [resp.ReferenceList] : []);
-  const flightMap  = {};
-  const productMap = {};
+  // Build ID → object maps from typed ReferenceList entries
+  const rawRefs   = resp.ReferenceList ?? [];
+  const refs      = Array.isArray(rawRefs) ? rawRefs : [rawRefs];
+  const flightMap = {}, productMap = {}, brandMap = {};
   for (const ref of refs) {
-    if (ref?.['@type'] === 'ReferenceListFlight')  for (const f of (ref.Flight  ?? [])) { if (f?.id) flightMap[f.id]  = f; }
-    if (ref?.['@type'] === 'ReferenceListProduct') for (const p of (ref.Product ?? [])) { if (p?.id) productMap[p.id] = p; }
+    switch (ref?.['@type']) {
+      case 'ReferenceListFlight':
+        for (const f of (ref.Flight  ?? [])) { if (f?.id) flightMap[f.id]  = f; } break;
+      case 'ReferenceListProduct':
+        for (const p of (ref.Product ?? [])) { if (p?.id) productMap[p.id] = p; } break;
+      case 'ReferenceListBrand':
+        for (const b of (ref.Brand   ?? [])) { if (b?.id) brandMap[b.id]   = b; } break;
+    }
   }
 
-  let html = '<div class="results-meta">Showing top ' + Math.min(offers.length,15) + ' of ' + offers.length + ' offers</div>';
+  // Correct path: resp.CatalogProductOfferings.CatalogProductOffering
+  const offers = resp.CatalogProductOfferings?.CatalogProductOffering ?? [];
+  if (!offers.length) {
+    container.innerHTML = '<div class="card" style="color:var(--text2);font-size:14px;">No offers returned. Check the raw JSON below for details.</div>';
+    return;
+  }
 
-  offers.slice(0,15).forEach((offer, i) => {
-    const pboOptions = offer?.ProductBrandOptions?.[0];               // ProductBrandOptions level
-    const pbo        = pboOptions?.ProductBrandOffering?.[0];         // first brand offering
-    const price    = pbo?.BestCombinablePrice?.TotalPrice ?? pbo?.BestCombinablePrice?.Total ?? '—';
-    const currency = pbo?.BestCombinablePrice?.CurrencyCode?.value ?? '';
-    const offerDep = esc(offer?.Departure ?? '');
-    const offerArr = esc(offer?.Arrival   ?? '');
-
-    // Path: ProductBrandOffering.Product[].productRef
-    //       → ReferenceList Product (id match)
-    //       → FlightSegment[].Flight.FlightRef
-    //       → ReferenceList Flight (id match)
-    let segsHtml = '';
-    for (const prodRef of (pbo?.Product ?? [])) {
-      const prod = productMap[prodRef.productRef ?? prodRef.id];
-      if (!prod) continue;
-      for (const seg of (prod.FlightSegment ?? [])) {
-        const f = flightMap[seg?.Flight?.FlightRef];
-        if (!f) continue;
-        const carrier = esc(f.carrier ?? '');
-        const num     = esc(f.number  ?? '');
-        const depLoc  = esc(f.Departure?.location ?? offerDep);
-        const arrLoc  = esc(f.Arrival?.location   ?? offerArr);
-        const depTime = esc(((f.Departure?.date ?? '') + ' ' + (f.Departure?.time ?? '')).trim());
-        const arrTime = esc(((f.Arrival?.date   ?? '') + ' ' + (f.Arrival?.time   ?? '')).trim());
-        segsHtml += '<div class="segment">'
-          + '<span class="seg-route">' + depLoc + ' → ' + arrLoc + '</span>'
-          + (carrier ? '<span class="seg-flight">' + carrier + num + '</span>' : '')
-          + '<span class="seg-times">' + depTime + (arrTime ? ' – ' + arrTime : '') + '</span>'
-          + '</div>';
-      }
+  // Flatten: each offer × each ProductBrandOptions entry = one displayable itinerary
+  const results = [];
+  for (const offer of offers) {
+    for (const pboOpt of (offer.ProductBrandOptions ?? [])) {
+      const pbos = pboOpt.ProductBrandOffering ?? [];
+      if (!pbos.length) continue;
+      results.push({ pbos });
     }
-    if (!segsHtml && offerDep) segsHtml = '<div class="segment"><span class="seg-route">' + offerDep + ' → ' + offerArr + '</span></div>';
-    if (!segsHtml) segsHtml = '<div class="segment" style="color:var(--text3)">Details in raw JSON</div>';
+  }
 
-    html += '<div class="offer-card">'
-      + '<div class="offer-left"><div class="offer-num">Option ' + (i+1) + '</div>' + segsHtml + '</div>'
-      + '<div class="offer-right"><div class="offer-price">' + esc(currency) + ' ' + esc(String(price)) + '</div>'
-      + '<div class="offer-price-label">per person</div></div></div>';
+  if (!results.length) {
+    container.innerHTML = '<div class="card" style="color:var(--text2);font-size:14px;">No flight options found. Check raw JSON below.</div>';
+    return;
+  }
+
+  const meta = document.createElement('div');
+  meta.className = 'results-meta';
+  meta.textContent = results.length + ' flight option' + (results.length !== 1 ? 's' : '') + ' found';
+  container.appendChild(meta);
+
+  results.forEach(({ pbos }, ri) => {
+    // First PBO = cheapest / base brand — use for flight data + price
+    const pbo      = pbos[0];
+    const priceObj = pbo.BestCombinablePrice ?? {};
+    const totalPrice = priceObj.TotalPrice;
+    const currency   = priceObj.CurrencyCode?.value ?? '';
+    const brandRef   = pbo.Brand?.BrandRef ?? '';
+    const brandName  = brandRef ? (brandMap[brandRef]?.name ?? '') : '';
+
+    // Resolve products → segments → flights
+    const legBlocks = [];
+    for (const prodRef of (pbo.Product ?? [])) {
+      const pid  = prodRef.productRef ?? prodRef.id;
+      const prod = productMap[pid];
+      if (!prod) continue;
+
+      // Cabin & booking class from PassengerFlight (same for all segments in a product)
+      const flightProduct = prod.PassengerFlight?.[0]?.FlightProduct?.[0] ?? {};
+      const cabin     = flightProduct.cabin            ?? '';
+      const bookClass = flightProduct.classOfService   ?? '';
+
+      const segments = [];
+      for (const seg of (prod.FlightSegment ?? [])) {
+        const fref = seg?.Flight?.FlightRef;
+        const f    = flightMap[fref];
+        if (!f) continue;
+        segments.push({
+          carrier:    f.carrier ?? '',
+          number:     String(f.number ?? ''),
+          depAirport: f.Departure?.location ?? '',
+          depDate:    f.Departure?.date     ?? '',
+          depTime:    (f.Departure?.time ?? '').slice(0, 5),   // "05:25:00" → "05:25"
+          arrAirport: f.Arrival?.location   ?? '',
+          arrDate:    f.Arrival?.date       ?? '',
+          arrTime:    (f.Arrival?.time ?? '').slice(0, 5),
+          duration:   f.duration   ?? '',
+          aircraft:   f.equipment  ?? '',
+          opCarrier:  f.operatingCarrier          ?? '',
+          opNumber:   String(f.operatingFlightNumber ?? ''),
+          layoverAfter: seg.connectionDuration ?? '',   // layover between this seg and next
+          cabin, bookClass,
+        });
+      }
+      if (segments.length) legBlocks.push({ segments, totalDuration: prod.totalDuration ?? '' });
+    }
+
+    if (!legBlocks.length) return;
+
+    // ── Card ─────────────────────────────────────────────────────────────────
+    const card = document.createElement('div');
+    card.className = 'offer-card';
+
+    const priceStr = totalPrice != null
+      ? (currency ? currency + ' ' : '') + Number(totalPrice).toFixed(2)
+      : '—';
+    const brandChip = brandName
+      ? `<span class="offer-brand">${esc(brandName)}</span>` : '';
+
+    card.innerHTML = `
+      <div class="offer-header">
+        <div><span class="offer-num">Result ${ri + 1}</span>${brandChip}</div>
+        <div class="offer-price-wrap">
+          <div class="offer-price">${esc(priceStr)}</div>
+          <div class="offer-price-label">per person · taxes included</div>
+        </div>
+      </div>`;
+
+    const body = document.createElement('div');
+    body.className = 'offer-body';
+
+    legBlocks.forEach(({ segments: segs, totalDuration }, legIdx) => {
+      const block     = document.createElement('div');
+      block.className = 'leg-block';
+
+      const firstSeg  = segs[0];
+      const lastSeg   = segs[segs.length - 1];
+      const stopCount = segs.length - 1;
+
+      // Leg label
+      let legLabel = '';
+      if (legBlocks.length === 2)      legLabel = legIdx === 0 ? 'Outbound' : 'Return';
+      else if (legBlocks.length > 2)   legLabel = 'Leg ' + (legIdx + 1);
+
+      // Duration: prefer product.totalDuration, fall back to computing from times
+      let journeyDur = parseDuration(totalDuration);
+      if (!journeyDur) {
+        const a = toMinutes(firstSeg.depDate, firstSeg.depTime);
+        const b = toMinutes(lastSeg.arrDate,  lastSeg.arrTime);
+        if (a != null && b != null) journeyDur = formatMinutes(b - a);
+      }
+
+      const stopClass = stopCount === 0 ? 'nonstop' : stopCount === 1 ? 'onestop' : 'multistop';
+      const viaApts   = segs.slice(0, -1).map(s => s.arrAirport).join(', ');
+      const stopText  = stopCount === 0 ? 'Non-stop'
+        : stopCount === 1 ? '1 stop via ' + esc(viaApts)
+        : stopCount + ' stops via ' + esc(viaApts);
+
+      let hdr = '<div class="leg-header">';
+      if (legLabel) hdr += `<span class="leg-header-label">${esc(legLabel)}</span>`;
+      hdr += `<span class="leg-route-label">${esc(firstSeg.depAirport)} → ${esc(lastSeg.arrAirport)}</span>`;
+      hdr += `<span class="stops-badge ${stopClass}">${stopText}</span>`;
+      if (journeyDur) hdr += `<span class="total-duration">${esc(journeyDur)} total</span>`;
+      hdr += '</div>';
+      block.innerHTML = hdr;
+
+      segs.forEach((seg, si) => {
+        // Layover row between segments
+        if (si > 0) {
+          const prevSeg = segs[si - 1];
+          // Use connectionDuration on the previous segment if available
+          let layoverText = parseDuration(prevSeg.layoverAfter);
+          if (!layoverText) {
+            const a = toMinutes(prevSeg.arrDate, prevSeg.arrTime);
+            const b = toMinutes(seg.depDate,     seg.depTime);
+            if (a != null && b != null) layoverText = formatMinutes(b - a);
+          }
+          if (layoverText) {
+            const layDiv = document.createElement('div');
+            layDiv.className = 'layover-row';
+            layDiv.textContent = layoverText + ' layover in ' + prevSeg.arrAirport;
+            block.appendChild(layDiv);
+          }
+        }
+
+        const depNote     = nextDayNote(firstSeg.depDate, seg.depDate);
+        const arrNote     = nextDayNote(firstSeg.depDate, seg.arrDate);
+        const isCodeshare = seg.opCarrier && seg.opCarrier !== seg.carrier;
+        const codeshareNote = isCodeshare
+          ? `<span style="font-size:10px;color:var(--text3);margin-left:4px;">Operated by ${esc(seg.opCarrier)} ${esc(seg.opNumber)}</span>` : '';
+        const cabinNote = seg.cabin
+          ? `<span class="cabin-badge">${esc(seg.cabin)}${seg.bookClass ? ' · ' + esc(seg.bookClass) : ''}</span>` : '';
+
+        const row = document.createElement('div');
+        row.className = 'flight-row';
+        row.innerHTML = `
+          <div class="apt-col">
+            <div class="apt-time">${esc(seg.depTime || '—')}</div>
+            <div class="apt-code">${esc(seg.depAirport)}</div>
+            <div class="apt-date">${esc(formatDate(seg.depDate))}</div>
+            ${depNote ? `<div class="apt-date-note">${esc(depNote)}</div>` : ''}
+          </div>
+          <div class="flight-mid">
+            <div class="flight-info-row">
+              <span class="flight-badge">${esc(seg.carrier + ' ' + seg.number)}</span>
+              ${cabinNote}${codeshareNote}
+            </div>
+            <div class="duration-label">${esc(parseDuration(seg.duration) || '—')}</div>
+            <div class="flight-line-wrap">
+              <div class="flight-line-dot left"></div>
+              <div class="flight-line-dot right"></div>
+            </div>
+            ${seg.aircraft ? `<div style="font-size:10px;color:var(--text3);margin-top:2px;">${esc(seg.aircraft)}</div>` : ''}
+          </div>
+          <div class="apt-col">
+            <div class="apt-time">${esc(seg.arrTime || '—')}</div>
+            <div class="apt-code">${esc(seg.arrAirport)}</div>
+            <div class="apt-date">${esc(formatDate(seg.arrDate))}</div>
+            ${arrNote ? `<div class="apt-date-note">${esc(arrNote)}</div>` : ''}
+          </div>`;
+        block.appendChild(row);
+      });
+
+      body.appendChild(block);
+    });
+
+    card.appendChild(body);
+
+    // Brand upsell chips (other brands for the same itinerary)
+    if (pbos.length > 1) {
+      const upsellDiv = document.createElement('div');
+      upsellDiv.className = 'upsell-row';
+      upsellDiv.innerHTML = '<span class="upsell-label">Also available:</span>';
+      pbos.slice(1).forEach(upPbo => {
+        const upRef   = upPbo.Brand?.BrandRef ?? '';
+        const upName  = upRef ? (brandMap[upRef]?.name ?? '') : '';
+        const upPrice = upPbo.BestCombinablePrice?.TotalPrice;
+        const upCur   = upPbo.BestCombinablePrice?.CurrencyCode?.value ?? currency;
+        const chip = document.createElement('span');
+        chip.className = 'upsell-chip';
+        chip.textContent = upName || 'Option';
+        if (upPrice != null) {
+          const priceSpan = document.createElement('span');
+          priceSpan.className = 'chip-price';
+          priceSpan.textContent = (upCur ? upCur + ' ' : '') + Number(upPrice).toFixed(2);
+          chip.appendChild(priceSpan);
+        }
+        upsellDiv.appendChild(chip);
+      });
+      card.appendChild(upsellDiv);
+    }
+
+    container.appendChild(card);
   });
-
-  container.innerHTML = html;
 }
 
-// ── custom request ────────────────────────────────────────────────────────────
+// ── Custom request ─────────────────────────────────────────────────────────────
 async function doCustomRequest() {
   const url      = document.getElementById('customUrl').value.trim();
   const method   = document.getElementById('customMethod').value;
   const bodyText = document.getElementById('customBody').value.trim();
 
-  if (!url) { setStatus('customStatus','Please enter an endpoint URL.','error'); return; }
+  if (!url) { setStatus('customStatus', 'Please enter an endpoint URL.', 'error'); return; }
 
-  setStatus('customStatus','Authenticating…','info',true);
+  setStatus('customStatus', 'Authenticating…', 'info', true);
   let token;
-  try { ({ token } = await getToken()); } catch(e) { setStatus('customStatus', e.message, 'error'); return; }
+  try { ({ token } = await getToken()); } catch (e) { setStatus('customStatus', e.message, 'error'); return; }
 
-  setStatus('customStatus','Sending request…','info',true);
+  setStatus('customStatus', 'Sending request…', 'info', true);
   document.getElementById('customRaw').style.display = 'none';
 
   const options = { method, headers: buildHeaders(token) };
   if (method !== 'GET' && bodyText) {
     try { JSON.parse(bodyText); options.body = bodyText; }
-    catch(e) { setStatus('customStatus','Invalid JSON in request body: ' + e.message,'error'); return; }
+    catch (e) { setStatus('customStatus', 'Invalid JSON: ' + e.message, 'error'); return; }
   }
 
   try {
     const res = await fetch(url, options);
     let data;
-    try { data = await res.json(); } catch(e) { data = { raw_text: await res.text() }; }
+    try { data = await res.json(); } catch (e) { data = { raw_text: await res.text() }; }
     document.getElementById('customJson').textContent = JSON.stringify(data, null, 2);
     document.getElementById('customRaw').style.display = 'block';
-    if (!res.ok) { setStatus('customStatus','Response ' + res.status + ' — check JSON below.','error'); return; }
-    setStatus('customStatus','Response ' + res.status + ' OK','success');
-  } catch(e) { setStatus('customStatus','Request failed: ' + e.message,'error'); }
+    if (!res.ok) { setStatus('customStatus', 'Response ' + res.status + ' — see JSON below.', 'error'); return; }
+    setStatus('customStatus', 'Response ' + res.status + ' OK', 'success');
+  } catch (e) { setStatus('customStatus', 'Request failed: ' + e.message, 'error'); }
 }
 
 function copyRaw(preId, btnId) {
@@ -679,11 +1049,16 @@ function copyRaw(preId, btnId) {
   }).catch(() => {});
 }
 
-// default dates
-const d = new Date(); d.setDate(d.getDate() + 7);
-document.getElementById('depDate').value = d.toISOString().slice(0,10);
-const r = new Date(); r.setDate(r.getDate() + 14);
-document.getElementById('retDate').value = r.toISOString().slice(0,10);
+// ── Initialise ─────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  activeEnv = ENV.prod;
+  document.getElementById('customPath').addEventListener('input', syncUrl);
+  syncUrl();
+
+  // Init legs for one-way
+  legs = [{ from: 'KHI', to: 'DXB', date: defaultDate(7) }];
+  renderLegs();
+});
 </script>
 </body>
 </html>
