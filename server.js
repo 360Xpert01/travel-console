@@ -95,7 +95,7 @@ for (const [prefix, hostname] of Object.entries(UPSTREAMS)) {
   app.use(`/proxy/${prefix}`, makeProxy(hostname));
 }
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Travelport proxy → http://localhost:${PORT}`);
   console.log(`  /proxy/auth    → https://auth.travelport.net`);

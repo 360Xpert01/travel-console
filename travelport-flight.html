@@ -241,7 +241,7 @@
     </div>
     <div>
       <h1>Travelport+ Flight Search</h1>
-      <p>Proxied via <strong>localhost:3000</strong> → <strong>api.travelport.net</strong></p>
+      <p>Proxied via <strong>/proxy/*</strong> → <strong>api.travelport.net</strong></p>
     </div>
   </header>
 
@@ -437,8 +437,8 @@ const CREDS = {
 
 // ── Environment presets ────────────────────────────────────────────────────────
 const ENV = {
-  prod:    { api: 'http://localhost:3000/proxy/api',    auth: 'http://localhost:3000/proxy/auth' },
-  preprod: { api: 'http://localhost:3000/proxy/api-pp', auth: 'http://localhost:3000/proxy/auth-pp' },
+  prod:    { api: '/proxy/api',    auth: '/proxy/auth' },
+  preprod: { api: '/proxy/api-pp', auth: '/proxy/auth-pp' },
 };
 let activeEnv = ENV.prod;
 
